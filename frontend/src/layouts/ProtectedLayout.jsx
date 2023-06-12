@@ -1,37 +1,36 @@
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Button, Layout, theme, Row, Col } from "antd";
+import { Button, Layout, Menu, theme, Row, Col } from "antd";
 import { useState } from "react";
 import UserAvatar from "../modules/user/components/UserAvatar";
-import MainMenu from "./partials/MainMenu";
 import { Outlet } from "react-router-dom";
+import LeftMenu from "./partials/LeftMenu";
 
 const { Header, Sider, Content } = Layout;
 
-function MainLayout() {
+function ProtectedLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
- 
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-        <div className="demo-logo-vertical" />
-        <MainMenu/>
+        <div className="demo-logo-vertical" ></div>
+        <LeftMenu/>
       </Sider>
       <Layout>
         <Header
           style={{
             padding: 0,
             background: colorBgContainer,
-            paddingRight: 24
           }}
         >
-          
-          <Row justify={"space-between"}>
+
+          <Row justify={"space-between"} style={{paddingRight: 24}}>
             <Col>
               <Button
                 type="text"
@@ -45,7 +44,7 @@ function MainLayout() {
               />
             </Col>
             <Col>
-              <UserAvatar/>
+              <UserAvatar />
             </Col>
           </Row>
         </Header>
@@ -64,4 +63,4 @@ function MainLayout() {
   );
 }
 
-export default MainLayout;
+export default ProtectedLayout;

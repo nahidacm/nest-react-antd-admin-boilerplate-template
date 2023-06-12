@@ -19,8 +19,12 @@ export class UserService {
     });
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(params: string[]) {
+    const accounts = await this.prisma.user.findMany({
+      skip: params['skip'],
+      take: params['take']
+    })
+    return accounts;
   }
 
   async findOne(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User | null>{

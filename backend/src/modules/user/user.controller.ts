@@ -16,8 +16,8 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Param() params: string[]) {
+    return this.userService.findAll(params);
   }
 
   @Get(':username')

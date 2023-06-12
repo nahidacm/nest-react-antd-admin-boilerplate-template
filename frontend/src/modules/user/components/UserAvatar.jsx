@@ -1,32 +1,18 @@
 import React from "react";
+import { Avatar, List, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Popover, List } from "antd";
 
 function UserAvatar() {
-    
-  const userMenu = () => {
-    return (
-      <List
-        size="small"
-        className="user-menu"
-      >
-        <List.Item>Name</List.Item>
+    const name = "User Full Name";
+    const menu_items = <List className="user-menu">
+        <List.Item>Profile</List.Item>
         <List.Item>Logout</List.Item>
-      </List>
-    );
-  };
-
+    </List>
   return (
-    <>
-      <Popover
-        placement="bottom"
-        title={<span>The Name</span>}
-        content={userMenu}
-        trigger="click"
-      >
-        <Avatar icon={<UserOutlined />} />
-      </Popover>
-    </>
+    
+    <Popover placement="bottom" title={name} content={menu_items} trigger="click">
+      <Avatar icon={<UserOutlined />} className="user-avatar" />
+    </Popover>
   );
 }
 
