@@ -9,21 +9,29 @@ const columns = [
     width: '20%',
   },
   {
+    title: 'Username',
+    dataIndex: 'username',
+    width: '20%',
+  },
+  {
     title: 'Email',
     dataIndex: 'email',
   },
   {
-    title: 'Hosing Environment',
-    dataIndex: 'hosting_environment',
+    title: 'Role',
+    dataIndex: 'role',
     filters: [
       {
-        text: 'NodeJS-Ubuntu',
-        value: 'nahidacm/ecp-ubuntu-node-base',
+        text: 'Admin',
+        value: 'admin',
+      },
+      {
+        text: 'User',
+        value: 'user',
       }
     ],
     width: '20%',
-  },
-  
+  }, 
 ];
 const getTableParam = (params) => ({
   take: params.pagination?.pageSize,
