@@ -1,11 +1,8 @@
 import {
   MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  MenuUnfoldOutlined
 } from "@ant-design/icons";
-import { Button, Layout, Menu, theme, Row, Col } from "antd";
+import { Button, Layout, theme, Row, Col } from "antd";
 import { useState } from "react";
 import UserAvatar from "../modules/user/components/UserAvatar";
 import MainMenu from "./partials/MainMenu";
@@ -18,8 +15,7 @@ function MainLayout() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  console.log(theme.useToken());
-
+ 
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
