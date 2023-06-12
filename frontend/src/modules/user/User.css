@@ -1,0 +1,16 @@
+.user-login {
+    margin-top: 30px;
+}
+.user-login .login-form-forgot {
+  float: right;
+}
+.user-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+.user-login .login-form-button {
+  width: 100%;
+}
+
+.user-menu .ant-list-item:hover {
+  cursor: pointer;
+}
