@@ -14,8 +14,13 @@ yarn install
 ```bash
 cp .env-sample .env
 ```
+Create database tables:
 ```bash
 yarn prisma db push
+```
+Seed some user:
+```bash
+yarn prisma db seed
 ```
 ```bash
 yarn start

@@ -1,6 +1,5 @@
-import { MailOutlined, SettingOutlined, SolutionOutlined } from '@ant-design/icons';
+import { SolutionOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const items = [
@@ -21,7 +20,7 @@ const items = [
     },
     {
       key: "email-validation",
-      label: <Link to={"email/validation"}>Email Validation</Link>
+      label: <Link to={"email/validation"}>Sample Page</Link>
   },
 ]
 

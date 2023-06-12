@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import UserLogin from './modules/user/components/UserLogin.jsx';
 
@@ -10,13 +9,13 @@ import checkAuth from './app/auth';
 import CreateAccount from './modules/account/components/CreateAccount.jsx';
 import ListAccount from './modules/account/components/ListAccount.jsx';
 import Exception from './modules/errors/Exception.jsx';
-import EmailValidation from './modules/email/EmailValidation.jsx';
+import EmailValidation from './modules/sample/EmailValidation.jsx';
 
 // Initializing different libraries
 initializeApp()
 
 // Check for login and initialize axios
-const token = checkAuth();
+checkAuth();
 
 const router = createBrowserRouter([
   {
