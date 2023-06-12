@@ -21,9 +21,17 @@ export class UserService {
 
   async findAll(params: string[]) {
     const accounts = await this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        email: true,
+        role: true
+      },
       skip: params['skip'],
-      take: params['take']
-    })
+      take: params['take'],
+    });
+
     return accounts;
   }
 
