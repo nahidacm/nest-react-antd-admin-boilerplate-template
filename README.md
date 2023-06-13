@@ -51,5 +51,6 @@ This should start the frontend in http://localhost:3000/
 
 You may login with:
 
-User: alice
-Pass: haveapass
+User: `alice`
+
+Pass: `haveapass`
