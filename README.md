@@ -14,7 +14,7 @@ yarn install
 ```bash
 cp .env-sample .env
 ```
-You may change the port number in `.env` file
+You may change the port number in `backend/.env` and `frontend/.env` file
 
 Create database tables:
 ```bash
@@ -26,7 +26,9 @@ yarn prisma db seed
 ```
 ```bash
 yarn start
+```
 // Or to run with PM2
+```bash
 chmod u+x run.sh
 ./run.sh
 ```
@@ -34,9 +36,8 @@ This should start the backend NestJS application in http://localhost:3013/
 
 
 #### Fronend installation
-Move back to project root. then:
 ```bash
-cd frontend
+cd ../frontend
 ```
 ```bash
 cp .env.sample .env
@@ -51,6 +52,6 @@ This should start the frontend in http://localhost:3000/
 
 You may login with:
 
-User: `alice`
+**User**: `alice`
 
-Pass: `haveapass`
+**Pass**: `haveapass`
