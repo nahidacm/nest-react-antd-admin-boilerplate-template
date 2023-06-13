@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from "../../services/prisma.service";
@@ -11,6 +11,17 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto) {
+
+    await this.findOne({username: createUserDto.username}).then((restul)=>{
+      if(restul){
+        throw new HttpException('username Already Exists', HttpStatus.CONFLICT);
+      }
+    });
+    await this.findOne({email: createUserDto.email}).then((restul)=>{
+      if(restul){
+        throw new HttpException('email address Already Exists', HttpStatus.CONFLICT);
+      }
+    });
     const saltOrRounds = 10;
     const hash = await bcrypt.hash(createUserDto.password, saltOrRounds);
 

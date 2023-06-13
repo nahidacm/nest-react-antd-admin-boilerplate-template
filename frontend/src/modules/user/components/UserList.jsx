@@ -59,7 +59,7 @@ const UserList = () => {
         ...tableParams,
         pagination: {
           ...tableParams.pagination,
-          total: 200,
+          total: response.data.length,
           // 200 is mock data, you should read it from server
           // total: data.totalCount,
         },

@@ -44,7 +44,7 @@ const UserCreate = () => {
             type: 'success',
             content: 'User Created',
           });
-          console.log(response)
+          form.resetFields();
       })
       .catch(function (error) {
         messageApi.open({
@@ -62,7 +62,7 @@ const UserCreate = () => {
       form={form}
       name="create_user"
       onFinish={onFinish}
-      initialValues={{ username: "nhdtest", role: "user" }}
+      initialValues={{ role: "user" }}
       style={{
         maxWidth: 600,
       }}
@@ -130,6 +130,7 @@ const UserCreate = () => {
       >
         <Select>
           <Option value="user">User</Option>
+          <Option value="admin">Admin</Option>
         </Select>
       </Form.Item>
 
