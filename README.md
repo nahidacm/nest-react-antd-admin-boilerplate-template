@@ -1,4 +1,4 @@
-## Boilerplate admin template with React, AntD, NestJS, Prisma, Sqlite
+## Boilerplate admin template with React, React route, AntD, NestJS, Prisma, Sqlite
 
 ### Installation
 ```bash
