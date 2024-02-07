@@ -16,5 +16,6 @@ model User {
   email String  @unique
   name  String?
   password String
+  access_token String?  @db.VarChar(2024)
   role String @default("user")
 }
