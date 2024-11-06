@@ -1,19 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Request, UseGuards, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Role } from '../auth/role.enum';
-import { Roles } from '../auth/roles.decorator';
+import { Role } from "../auth/role.enum";
+import { Roles } from "../auth/roles.decorator";
 import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('user')
@@ -27,52 +17,63 @@ export class UserController {
   }
 
   @Get()
-  findAll(@Param() params: string[]) {
-    return this.userService.findAll(params);
+  findAll() {
+    return this.userService.findAll();
   }
 
   @UseGuards(AuthGuard)
   @Get('me')
   getProfile(@Request() req) {
-    const username = req.user.username;
-    let user = this.userService.findOne({ username }).then((result) => {
+    const username =  req.user.username;
+    const user = this.userService.findOne({username}).then((result)=>{
       delete result.password;
       return result;
-    });
+    })
 
+    return user;
+  }
+
+  @Get('mysqlcred')
+  accountMySqlCredential(@Request() req){
+    return this.userService.getMySqLCred(req);
+  }
+
+  @Get('edit')
+  findById(@Query('id') id: number) {
+    console.log('ID', id);
+    const user = this.userService.findOne({id: +id}).then((result)=>{
+      if(result){
+        delete result.password;
+      }else{
+        return {}
+      }
+      return result;
+    })
     return user;
   }
   
-  @UseGuards(AuthGuard)
-  @Get('profile')
-  getFullProfile(@Request() req) {
-    const username = req.user.username;
-    let user = this.userService.findOne({ username }).then((result) => {
-      delete result.password;
-      return result;
-    });
-
-    return user;
-  }
-
   @Get(':username')
-  async findOne(@Param('username') username: string) {
-    let user = await this.userService.findOne({ username }).then((result) => {
-      console.log('User Result: ',result);
-      delete result.password;
+  findOne(@Param('username') username: string) {
+    const user = this.userService.findOne({username}).then((result)=>{
+      if(result){
+        delete result.password;
+      }else{
+        return {}
+      }
       return result;
-    });
-
+    })
     return user;
   }
 
+  @Roles(Role.Admin)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Roles(Role.Admin)
+  @Delete(':username')
+  remove(@Param('username') username: string) {
+    return this.userService.remove(username);
   }
 }
