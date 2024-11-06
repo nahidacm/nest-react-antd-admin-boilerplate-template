@@ -1,9 +1,9 @@
 import React from "react";
-import App from "./App.jsx";
+import App from "./App";
 import { createBrowserRouter } from "react-router-dom";
-import UserLogin from "./modules/user/components/UserLogin.jsx";
-import UserCreate from "./modules/user/components/UserCreate.jsx";
-import UserList from "./modules/user/components/UserList.jsx";
+import UserLogin from "./modules/user/components/UserLogin";
+import UserCreate from "./modules/user/components/UserCreate";
+import UserList from "./modules/user/components/UserList";
 
 const router = createBrowserRouter([
   {

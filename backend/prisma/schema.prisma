@@ -11,11 +11,46 @@ datasource db {
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  username String @unique
-  email String  @unique
-  name  String?
-  password String
-  access_token String?  @db.VarChar(2024)
-  role String @default("user")
+  id           Int     @id @default(autoincrement())
+  username     String  @unique
+  email        String  @unique
+  name         String?
+  password     String
+  access_token String?
+  role         String  @default("user")
+
+  Backup Backup[]
+
+  Credential Credential[]
+}
+
+model Backup {
+  id          Int      @id @default(autoincrement())
+  name        String
+  source_dir  String
+  dest_dir    String
+  dest_type   String // 'rsync', 'FTP', 's3' etc
+  created_at  DateTime @default(now())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     Int
+  credential Credential @relation(fields: [credential_id], references: [id])
+  credential_id Int
+}
+
+model Schedule {
+  id              Int     @id @default(autoincrement())
+  cron_expression String
+  job_name        String
+  job_details     String  @default("{}")
+  is_active       Boolean @default(true)
+}
+
+model Credential {
+  id          Int      @id @default(autoincrement())
+  title       String
+  credentials String   @default("{}")
+  created_at  DateTime @default(now())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     Int
+  Backup Backup[]
 }

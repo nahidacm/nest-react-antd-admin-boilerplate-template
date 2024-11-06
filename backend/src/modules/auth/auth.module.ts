@@ -8,7 +8,7 @@ import { PrismaService } from '../../services/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { AuthGuard } from './auth.guard';
-import { RolesGuard } from "./roles.guard";
+import { RolesGuard } from './roles.guard';
 
 @Module({
   imports: [

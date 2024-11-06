@@ -1,24 +1,52 @@
+import React, { useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, Row, Card } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row, Card, message, ConfigProvider } from "antd";
 import "../User.css";
 import axios from "axios";
+import checkAuth from '../../../app/auth.js'
 
 const UserLogin = () => {
+
+  const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values) => {
     axios.post('/auth/login', values)
-    .then(function (response) {
-      localStorage.setItem("token", response.data.access_token);
-      window.location.href = "/";
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      .then(function (response) {
+        localStorage.setItem("token", response.data.access_token);
+        window.location.href = "/";
+      })
+      .catch(function (error) {
+        const error_message = error.response?.data?.message ? error.response?.data?.message : "Something went wrong";
+        messageApi.open({
+          type: 'error',
+          content: error_message,
+        });
+      });
   };
+
+  useEffect(() => {
+    const token = checkAuth();
+    if (token) {
+      window.location.href = "/";
+    }
+  }, [])
+
   return (
     <div id="login-module">
-      <Row justify={"center"}>
-        <Col xs={24} sm={24} md={12} lg={8}>
-          <Card>
+      <ConfigProvider
+        theme={{
+          token: {
+            // Seed Token
+            colorPrimary: '#682d90',
+            controlHeight: 40,
+            fontSize: 15,
+          },
+        }}
+      >
+        {contextHolder}
+        <Row justify={"center"}>
+          <Col xs={24} sm={24} md={12} lg={8}>
+            <Card>
+              <div style={{ textAlign: "center" }}><img alt="ecp-logo" src="/epic-labs-23-logo.svg" height={75} /></div>
               <Form
                 name="normal_login"
                 className="login-form"
@@ -60,9 +88,6 @@ const UserLogin = () => {
                   <Form.Item name="remember" valuePropName="checked" noStyle>
                     <Checkbox>Remember me</Checkbox>
                   </Form.Item>
-                  <a className="login-form-forgot" href="">
-                    Forgot password
-                  </a>
                 </Form.Item>
                 <Form.Item>
                   <Button
@@ -74,9 +99,10 @@ const UserLogin = () => {
                   </Button>
                 </Form.Item>
               </Form>
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+        </Row>
+      </ConfigProvider>
     </div>
   );
 };

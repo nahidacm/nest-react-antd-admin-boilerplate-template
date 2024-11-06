@@ -1,28 +1,34 @@
 import React from "react";
 import { Menu } from "antd";
-import {
-  UserOutlined, ProfileOutlined
-} from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import UserIcon from "../../modules/common/custom-icons/UserIcon";
+import UsersIcon from "../../modules/common/custom-icons/UsersIcon";
+import AddUserIcon from "../../modules/common/custom-icons/AddUserIcon";
 
 const items = [
   {
+    label: <Link to={`/`}>Dashboard</Link>,
+    key: "dashboard",
+    icon: <img alt="ecp-icon" src="/epic-labs-23-icon.svg" width="24" />
+  },
+  {
     label: "Users",
     key: "users",
-    icon: <UserOutlined />,
+    icon: <UserIcon />,
     children: [
       {
-        label: <Link to={`user/list`}>User List</Link>,
-        key: "user-list"
+        label: <Link to={`user/list`}>All Users</Link>,
+        key: "all-users",
+        icon: <UsersIcon />
       },
       {
-        label: <Link to={`user/create`}>Create User</Link>,
-        key: "create-user"
+        label: <Link to={`user/create`}>Add New</Link>,
+        key: "add-new-user",
+        icon: <AddUserIcon />
       },
     ]
   },
 ];
-
 
 function LeftMenu() {
   return (

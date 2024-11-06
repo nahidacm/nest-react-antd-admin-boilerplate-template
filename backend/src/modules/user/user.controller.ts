@@ -42,10 +42,23 @@ export class UserController {
 
     return user;
   }
+  
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  getFullProfile(@Request() req) {
+    const username = req.user.username;
+    let user = this.userService.findOne({ username }).then((result) => {
+      delete result.password;
+      return result;
+    });
+
+    return user;
+  }
 
   @Get(':username')
-  findOne(@Param('username') username: string) {
-    let user = this.userService.findOne({ username }).then((result) => {
+  async findOne(@Param('username') username: string) {
+    let user = await this.userService.findOne({ username }).then((result) => {
+      console.log('User Result: ',result);
       delete result.password;
       return result;
     });
