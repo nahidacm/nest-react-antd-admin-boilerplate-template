@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import UserLogin from "./modules/user/components/UserLogin";
 import UserCreate from "./modules/user/components/UserCreate";
 import UserList from "./modules/user/components/UserList";
+import UserProfile from "./modules/user/components/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "user/create",
         element: <UserCreate />,
+      },
+      {
+        path: "user/me",
+        element: <UserProfile />,
       },
     ],
   },
