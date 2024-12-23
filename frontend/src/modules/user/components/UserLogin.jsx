@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, Row, Card, message, ConfigProvider } from "antd";
+import { Button, Checkbox, Col, Form, Input, Row, Card, ConfigProvider, notification } from "antd";
 import "../User.css";
 import axios from "axios";
 import checkAuth from '../../../app/auth.js'
 
 const UserLogin = () => {
 
-  const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values) => {
     axios.post('/auth/login', values)
       .then(function (response) {
@@ -16,10 +15,10 @@ const UserLogin = () => {
       })
       .catch(function (error) {
         const error_message = error.response?.data?.message ? error.response?.data?.message : "Something went wrong";
-        messageApi.open({
-          type: 'error',
-          content: error_message,
-        });
+        notification.error({
+          message: "Error",
+          description: error_message
+        })
       });
   };
 
@@ -42,7 +41,6 @@ const UserLogin = () => {
           },
         }}
       >
-        {contextHolder}
         <Row justify={"center"}>
           <Col xs={24} sm={24} md={12} lg={8}>
             <Card>

@@ -1,38 +1,7 @@
-import { Table, message } from 'antd';
+import { Button, Popconfirm, Space, Table, message } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    width: '20%',
-  },
-  {
-    title: 'Username',
-    dataIndex: 'username',
-    width: '20%',
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-  },
-  {
-    title: 'Role',
-    dataIndex: 'role',
-    filters: [
-      {
-        text: 'Admin',
-        value: 'admin',
-      },
-      {
-        text: 'User',
-        value: 'user',
-      }
-    ],
-    width: '20%',
-  }, 
-];
 const getTableParam = (params) => ({
   take: params.pagination?.pageSize,
   skip: params.pagination?.current,
@@ -50,6 +19,58 @@ const UserList = () => {
       pageSize: 10,
     },
   });
+
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      width: '20%',
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      width: '20%',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      filters: [
+        {
+          text: 'Admin',
+          value: 'admin',
+        },
+        {
+          text: 'User',
+          value: 'user',
+        }
+      ],
+      width: '20%',
+    },
+    {
+      title: 'Action',
+      render: (text, record) => (
+        <Space size="middle">
+          <Popconfirm
+            title="Are you sure you want to delete this user?"
+            onConfirm={() => handleDelete(record)}
+          >
+            <Button type='link'>Delete</Button>
+          </Popconfirm>
+        </Space>
+      )
+    }
+  ];
+
+  function handleDelete(record) {
+    axios.delete(`/user/${record.id}`).then((response) => {
+      fetchData();
+    });
+  }
+
   const fetchData = () => {
     setLoading(true);
     axios.get("/user", getTableParam(tableParams)).then((response) => {
@@ -75,6 +96,7 @@ const UserList = () => {
   useEffect(() => {
     fetchData();
   }, [JSON.stringify(tableParams)]);
+
   const handleTableChange = (pagination, filters, sorter) => {
     setTableParams({
       pagination,
@@ -89,15 +111,15 @@ const UserList = () => {
   };
   return (
     <>
-    {contextHolder}
-    <Table
-      columns={columns}
-      rowKey={(record) => record.id}
-      dataSource={data}
-      pagination={tableParams.pagination}
-      loading={loading}
-      onChange={handleTableChange}
-    />
+      {contextHolder}
+      <Table
+        columns={columns}
+        rowKey={(record) => record.id}
+        dataSource={data}
+        pagination={tableParams.pagination}
+        loading={loading}
+        onChange={handleTableChange}
+      />
     </>
   );
 };

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Avatar, List, Popover } from "antd";
+import { Avatar, Button, List, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { logout } from "../userFunctions";
 import axios from "axios";
@@ -14,8 +14,8 @@ function UserAvatar() {
   
     // const name = "User Full Name";
     const menu_items = <List className="user-menu">
-        <List.Item>Profile</List.Item>
-        <List.Item onClick={logout}>Logout</List.Item>
+        <List.Item><Button type="link" href="/user/me">Profile</Button></List.Item>
+        <List.Item onClick={logout}><Button type="link">Logout</Button></List.Item>
     </List>
 
   return (
