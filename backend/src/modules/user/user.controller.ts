@@ -17,8 +17,8 @@ export class UserController {
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Param() params: string[]) {
+    return this.userService.findAll(params);
   }
 
   @UseGuards(AuthGuard)
@@ -31,11 +31,6 @@ export class UserController {
     })
 
     return user;
-  }
-
-  @Get('mysqlcred')
-  accountMySqlCredential(@Request() req){
-    return this.userService.getMySqLCred(req);
   }
 
   @Get('edit')
@@ -72,8 +67,8 @@ export class UserController {
   }
 
   @Roles(Role.Admin)
-  @Delete(':username')
-  remove(@Param('username') username: string) {
-    return this.userService.remove(username);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.userService.remove(+id);
   }
 }
